@@ -1,0 +1,45 @@
+---
+title: "Anneliese Forlenza"
+about:
+  template: jolla
+  image: headshot2 copy.jpg
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://twitter.com
+    - icon: github
+      text: Github
+      href: https://github.com/annelieseforlenza/annelieseforlenza.github.io
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/anneliese-forlenza/
+---
+---
+
+Hi, welcome to my page! I'm originally from New Jersey and am currently a senior at George Washington University in Washington, D.C. I'm studying communication, journalism, and political science and I'm graduating this December.
+
+---
+
+
+## **Education**
+
+George Washington University
+
+## **Work Experience**
+
+Evins Communications
+
+GW-TV
+
+The House of Representatives
+
+Allendale Bar and Grill
+
+## **Skills**
+
+Social Media Development
+
+Public Relations
+
+Writing
+
+Interpersonal Communication
