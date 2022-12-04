@@ -1,5 +1,18 @@
 ---
-title: "Portfolio"
+title: "My Portfolio"
+about:
+  template: jolla
+  links:
+    - icon: Howard Schneider Serves As Wise Voice For Fake News Phenomena
+      text: Howard Schneider Serves As Wise Voice For Fake News Phenomena
+      href: https://docs.google.com/document/d/1RaNN4B9q73RMQ7z2hi6j6FuOlyu_Kq9nwUCEamf3zvo/edit?usp=sharing
+    - icon: Turning Waste Into Wonderful
+      text: Turning Waste Into Wonderful
+      href: https://docs.google.com/document/d/1kmsiElU7BSC0H7fK7U-2jdHZ4JdlyF61hCPz1eZ57AE/edit?usp=sharing
+    - text: Gender Wage Gap Legislative Memo
+      href: https://docs.google.com/document/d/1x6fT9iemwTAKFx7xbH6-rQa-C1kmx6TCjnsYb8cTTNU/edit
 ---
 
-Hi there. This is my portfolio page! Yay! 
+My Work
+
+"Howard Schneider Serves As Wise Voice For Fake News Phenomena" is an article featuring the Executive Director of the Center for News Literacy and a nationally-known expert on political communication in this era of fake news and misinformation. Read more to hear Schneider's stance on misinformation in this modern age.
