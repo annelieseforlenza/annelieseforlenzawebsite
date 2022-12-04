@@ -1,0 +1,15 @@
+---
+title: "New Portfolio"
+about:
+  template: jolla
+  image: headshot2 copy.jpg
+  links:
+    - icon: Howard Schneider Serves As Wise Voice For Fake News Phenomena
+      text: Howard Schneider Serves As Wise Voice For Fake News Phenomena
+      href: https://docs.google.com/document/d/1RaNN4B9q73RMQ7z2hi6j6FuOlyu_Kq9nwUCEamf3zvo/edit
+    - icon: Turning Waste Into Wonderful
+      text: Turning Waste Into Wonderful
+      href: https://docs.google.com/document/d/1kmsiElU7BSC0H7fK7U-2jdHZ4JdlyF61hCPz1eZ57AE/edit?usp=sharing
+    - text: Gender Wage Gap Legislative Memo
+      href: https://docs.google.com/document/d/1x6fT9iemwTAKFx7xbH6-rQa-C1kmx6TCjnsYb8cTTNU/edit?usp=sharing
+---
