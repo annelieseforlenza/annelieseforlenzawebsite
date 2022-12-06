@@ -9,6 +9,8 @@ format:
 
 ---
 
+Below you can find a walkthrough of code that we can use to analyze the Georgia Senate and Governor race results.
+
 We'll start by loading our libraries.
 
 ```{r setup, include=FALSE}
@@ -140,11 +142,9 @@ tm_shape(counties_geo) +
 
 ```
 
-Great, it looks like we should be good to go. Use the newly created map data in `counties_geo` along with our election results datasets to complete the questions below.
+From now on, we'll use the newly created map data in `counties_geo` along with our election results datasets.
 
-**7)**
-
-For the Senate race, create a choropleth (shaded) map of Georgia counties that shows where the Republican candidate for Senate did better vs. worse than Trump.
+Now, for the Senate race, we'll create a choropleth map of Georgia counties that shows where the Republican candidate for Senate did better vs. worse than Trump.
 
 ```{r}
 
@@ -159,9 +159,7 @@ tm_shape(senatemap) +
 
 ```
 
-**8)**
-
-Now do the same as Question 7, just this time do it for the race for Governor.
+Next, for the Governor race, we'll create a choropleth map of Georgia counties that shows where the Republican candidate for Senate did better vs. worse than Trump.
 
 ```{r}
 
@@ -177,9 +175,10 @@ tm_shape(govmap) +
 
 ```
 
-**9)**
 
-For the Senate race, create a choropleth map that shows the margins of victory for the Democratic candidate. To do that you'll need to compare the Democratic candidate's percentage (pct_d\_2022) with the Republican's (pct_r\_2022) to calculate the margin of victory for each county.
+Almost there! 
+
+For the Senate race, let's create a choropleth map that shows the margins of victory for the Democratic candidate. Note: for this, you'll need to calculate the margin of victory for each county.
 
 ```{r}
 
@@ -194,9 +193,7 @@ tm_shape(MOV_senatemap) +
 
 ```
 
-**10)**
-
-Now do the same as Question 4, only this time for the race for Governor instead.
+Now, for the Governor race, let's create a choropleth map that shows the margins of victory for the Democratic candidate. Note: for this, you'll need to calculate the margin of victory for each county.
 
 ```{r}
 
@@ -211,18 +208,4 @@ tm_shape(MOV_govmap) +
 
 ```
 
-**11)**
-
-*Extra credit:* determine the biggest differences between what the Republican candidate for Governor received and what the Senate candidate received. Then create a choropleth map of Georgia counties that shows those differences.
-
-(Note that to accomplish this you'll have to first run a join that merges the two datasets, so that you have both the senate and governor version of the `pct_r_2022` column in the same table.)
-
-```{r}
-
-
-
-
-
-```
-
-# 
+GREAT WORK!
