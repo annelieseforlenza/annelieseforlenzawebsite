@@ -11,6 +11,8 @@ website:
       - about.qmd
       - portfolio.qmd
       - walkthrough.qmd
+      - featurearticle.qmd
+      - academicpaper.qmd
   page-footer: 
     left: "Copyright 2022, Anneliese Forlenza" 
     right: 
