@@ -2,9 +2,6 @@
 title: "News Feature"
 about:
   template: jolla
-editor: 
-  markdown: 
-    wrap: sentence
 ---
 
 In the spring semester of my sophomore year at GW, I wrote a magazine-style article about a New Jersey Covid Vaccine Info Facebook group and their efforts to spread vital information about where the receive the first two doses of the Covid-19 vaccine.
