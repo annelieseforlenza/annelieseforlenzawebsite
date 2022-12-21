@@ -1,0 +1,228 @@
+---
+title: "VA Election Walkthrough and Annotation"
+author: "Anneliese Forlenza"
+execute:
+  echo: true
+format:
+  html:
+    self-contained: true
+    code-tools: true
+---
+
+Below you can find an annotated walkthrough of code that we can use to analyze and compare the 2021 Virginia Governor results and 2020 Presidential results.
+
+We'll start by loading our libraries.
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+
+
+library(tidyverse)
+library(janitor)
+library(httr)
+library(jsonlite)
+library(kableExtra)
+library(here)
+library(DT)
+options(scipen = 999)
+options(stringsAsFactors = FALSE)
+
+
+#load saved joined data file from previous script
+joined_vacomparison <- readRDS(here("processed_data", "joined_vacomparison.rds"))
+
+
+
+```
+
+
+# Comparing Virgnia Gov vs. Prez
+
+Welcome! We're going to be analyzing the 2021 VA Governor race results (Youngkin - R vs. McAuliffe - D) as well as the 2020 Presidential race results (Trump - R vs. Biden - D). We've loaded our libraries and brought in the necessary data set from our previous script using the readRDS function. Let's begin!
+
+To kick things off, let's create a proper table to display the data we just brought in.
+
+To do this, use a pipe (%>$) to indicate that you're using the joined_vacomparison data and then let's use the DT::datatable function to create our table. Remember to add a filter = "top" this will allow your data table to be interactive and users can filter results from the top bar.
+
+```{r}
+
+joined_vacomparison %>%
+  DT::datatable(rownames = FALSE, filter = "top", 
+                options = list(searching = FALSE, paging = FALSE, dom = "tip"))
+
+```
+
+Looks great. Let's move on and make a column chart to show the top 5 counties where Youngkin did better in vote percent outcomes than Trump. In other words, let's look at how Republicans performed in governor race vs. presidential race in Virginia.
+
+To start, we'll need to calculate the difference between vote percents for Youngkin and vote percents for Trump. Using our joined_vacomparison mass data set, let's add a column using the mutate function. Simply use mutate and fill in with your new column name = pct_youngkin - trump_pct). 
+
+Then, we'll use the arrange function to sort this new column called r_gov_to_pres in order from largest to smallest. For this, you'll need to include desc(r_gov_to_pres) in the arrange function. Desc will order it from largest to smallest, or rather, descending order. Remember to lastly give it a new, unique name.
+
+You'll also want to use the head function and input the newly created data set with the new column and write , 5. This will make sure you're only seeing the top 5 counties. Give that a new name as well. 
+
+Now for the fun part. To make a column chart in R, you'll need to use the ggplot function. Within ggplot, you'll first put the dataset you want to work from. In our case, it is the new data set we just created called top_5_counties_youngkin_v_trump. Next, you'll use "aes" to input your x and y axes. For this chart, "locality" is our x (locality is just a fancy word for county in VA) and since we are looking at how Youngkin votes compared to Trump votes, y will be the column "r_gov_to_pres". Within aes, we will reorder the x axis so that the results are ordered from most to least in the chart. 
+
+Next, let's adjust the layout of the chart to be horizontal. We can do that by using the function coord_flip().
+
+To spice up the chart, we'll add some labels for the axes and overall chart. To do this, you'll use the scale_y_continuous function to create a y-axis label. Simply fill the function with name = "your desired label" and then add labels = scales::comma (separate by a comma). This particular addition essentially just separates the thousands with commas to help with the magnitude of numbers in the data. 
+
+*You can see code below for what I chose to label the axes.
+
+For the x-axis label, you'll use the scale_x_discrete function and simply fill the function with name = "your desired label". 
+
+Lastly, for an overall label for the chart, you'll use the labs function and simply fill the function with name = "your desired label". 
+
+DON'T SKIP: Lastly, using + (which you've seen you need to use to separate each line of code), add geom_col(). This is crucial as it tells the ggplot function that you want to create a column/bar chart! 
+
+```{r}
+r_gov_to_pres_joined_vacomparison <- joined_vacomparison %>% 
+mutate(r_gov_to_pres = pct_youngkin - trump_pct) %>% 
+  arrange(desc(r_gov_to_pres))
+
+top_5_counties_youngkin_v_trump <- head(r_gov_to_pres_joined_vacomparison, 5)
+
+ggplot(top_5_counties_youngkin_v_trump, aes(x= reorder(locality, -r_gov_to_pres), y=r_gov_to_pres)) +
+  coord_flip() +
+  scale_y_continuous(name = "Youngkin vs. Trump Percent Difference", labels = scales::comma) +
+  scale_x_discrete(name = "County") +
+  labs(title = "Top 5 Counties Where Youngkin Outperformed Trump") +
+  geom_col()
+
+```
+
+Let's now create another column chart to see the top 5 counties with the highest Youngkin votes.
+
+We will start by taking our mass data set called joined_vacomparison and use the select function to pick out the particular columns we want to use. For this analysis, we will need locality and pct_youngkin. Next, we'll use the arrange function and sort pct_youngkin in descending order using desc. In other words, sorting from largest to smallest. Lastly, since we are looking at the top 5 counties, tag on the head function and input 5. Remember to give this new, updated data a unique name.
+
+Great work. Now let's turn it into a column chart!
+
+As a reminder, to make a column chart in R, you'll need to use the ggplot function. Within ggplot, you'll first put the dataset you want to work from. In our case, it is the new data set we just created called top_5_youngkin. Next, you'll use "aes" to input your x and y axes. For this chart, "locality" is our x (locality is just a fancy word for county in VA) and y will be the column "pct_youngkin". Within aes, we will reorder the x axis so that the results are ordered from most to least in the chart. 
+
+Next, let's adjust the layout of the chart to be horizontal. We can do that by using the function coord_flip().
+
+To spice up the chart, we'll add some labels for the axes and overall chart. To do this, you'll use the scale_y_continuous function to create a y-axis label. Simply fill the function with name = "your desired label" and then add labels = scales::comma (separate by a comma). This particular addition essentially just separates the thousands with commas to help with the magnitude of numbers in the data. 
+
+*You can see code below for what I chose to label the axes.
+
+For the x-axis label, you'll use the scale_x_discrete function and simply fill the function with name = "your desired label". 
+
+Lastly, for an overall label for the chart, you'll use the labs function and simply fill the function with name = "your desired label". 
+
+DON'T SKIP: Lastly, using + (which you've seen you need to use to separate each line of code), add geom_col(). This is crucial as it tells the ggplot function that you want to create a column/bar chart!  
+
+```{r}
+
+top_5_youngkin <- joined_vacomparison %>%
+  select(locality, pct_youngkin) %>% 
+  arrange(desc(pct_youngkin)) %>% 
+  head(5)
+
+ggplot(top_5_youngkin, aes(x= reorder(locality, -pct_youngkin), y=pct_youngkin)) +
+  coord_flip() +
+  scale_y_continuous(name = "Percent Youngkin Vote", labels = scales::comma) +
+  scale_x_discrete(name = "County") +
+  labs(title = "Top 5 Counties With Highest Youngkin Votes") +
+  geom_col()
+
+```
+
+Let's switch it up and make a proper data table that displays the top 5 counties with the highest votes for McAuliffe. To do this, let's take our mass data set called joined_vacomparison and similar to the annotated walkthrough above, we can use the select function to pick out the particular columns we want to use. For this analysis, we will need locality and pct_mcauliffe. Next, we'll use the arrange function and sort pct_mcauliffe in descending order using desc. In other words, sorting from largest to smallest. Lastly, since we are looking at the top 5 counties, tag on the head function and input 5. Remember to give this new, updated data a unique name.
+
+To make the data table, we'll use the DT::datatable function. The rest is simple. Input the new data set we just created (top_5_mcauliffe) into the function and there you have it.
+
+```{r}
+
+top_5_mcauliffe <- joined_vacomparison %>%
+  select(locality, pct_mcauliffe) %>% 
+  arrange(desc(pct_mcauliffe)) %>% 
+  head(5)
+
+DT::datatable(top_5_mcauliffe)
+```
+
+Now let's have some fun and analyze some more of the data. Let's make a column chart that shows the top 10 counties where Youngkin outperformed his opponent McAuliffe (Youngkin won the race). 
+
+To do this, let's create a new column using the mutate function. This column will be named gov_r_win and will be the difference between Youngkin votes (pct_youngkin) and McAuliffe votes (pct_mcauliffe). Remember to give the new data set a unique name. 
+
+To organize the data how we like, we can use the arrange function and sort our new column called gov_r_win in descending order using desc. In other words, sorting from largest to smallest. Lastly, since we are looking at the top 10 counties, tag on the head function and input 10. Remember to give this new, updated data a unique name.
+
+Now we're in good shape for the column chart. 
+
+As a reminder, to make a column chart in R, you'll need to use the ggplot function. Within ggplot, you'll first put the dataset you want to work from. In our case, it is the new data set we just created called top_10_gov_r_win. Next, you'll use "aes" to input your x and y axes. For this chart, "locality" is our x (locality is just a fancy word for county in VA) and y will be the column "gov_r_win". Within aes, we will reorder the x axis so that the results are ordered from most to least in the chart. 
+
+Next, let's adjust the layout of the chart to be horizontal. We can do that by using the function coord_flip().
+
+To spice up the chart, we'll add some labels for the axes and overall chart. To do this, you'll use the scale_y_continuous function to create a y-axis label. Simply fill the function with name = "your desired label" and then add labels = scales::comma (separate by a comma). This particular addition essentially just separates the thousands with commas to help with the magnitude of numbers in the data. 
+
+*You can see code below for what I chose to label the axes.
+
+For the x-axis label, you'll use the scale_x_discrete function and simply fill the function with name = "your desired label". 
+
+Lastly, for an overall label for the chart, you'll use the labs function and simply fill the function with name = "your desired label". 
+
+DON'T SKIP: Lastly, using + (which you've seen you need to use to separate each line of code), add geom_col(). This is crucial as it tells the ggplot function that you want to create a column/bar chart!  
+
+```{r}
+
+gov_r_win_joined_vacomparison <- joined_vacomparison %>% 
+mutate(gov_r_win = pct_youngkin - pct_mcauliffe)
+
+
+top_10_gov_r_win <- gov_r_win_joined_vacomparison %>% 
+  arrange(desc(gov_r_win)) %>% 
+  head(10)
+
+ggplot(top_10_gov_r_win, aes(x= reorder(locality, -gov_r_win), y=gov_r_win)) + 
+  coord_flip() +
+  scale_y_continuous(name = "Youngkin vs. McAuliffe Percent Difference", labels = scales::comma) +
+  scale_x_discrete(name = "County") +
+  labs(title = "Top 10 Counties Where Youngkin Outperformed McAuliffe") +
+  geom_col()
+
+
+```
+
+Next, let's make a column chart that shows the top 10 counties where McAuliffe (D) did better in votes compared to the Democrat candidate for president, Biden. 
+
+*APPLY ABOVE ALL ANNOTATIONS( (USING MUTATE FUNCTION with "pct_mcauliffe" and "biden_pct" TO CREATE NEW COLUMN).
+
+FOLLOW PREVIOUS ANNOTATIONS TO CREATE COLUMN CHART.
+
+```{r}
+
+joined_vacomparison <- joined_vacomparison %>% 
+mutate(d_gov_to_pres = pct_mcauliffe - biden_pct)
+
+d_gov_to_pres_joined_vacomparison <- joined_vacomparison %>% 
+  arrange(desc(d_gov_to_pres)) %>%
+  head(10)
+
+ggplot(d_gov_to_pres_joined_vacomparison, aes(x= reorder(locality, -d_gov_to_pres), y=d_gov_to_pres)) +
+  coord_flip() +
+  scale_y_continuous(name = "McAuliffe vs. Biden Percent Difference", labels = scales::comma) +
+  scale_x_discrete(name = "County") +
+  labs(title = "Top 10 Counties Where McAuliffe Outperformed Biden") +
+  geom_col()
+
+```
+
+Lastly, let's make a proper data table that displays the top 5 counties with the highest vote percentages for Biden. 
+
+As a reminder, to do this, let's take our mass data set called joined_vacomparison and use the select function to pick out the particular columns we want to use. For this analysis, we will need locality and biden_pct. Next, we'll use the arrange function and sort biden_pct in descending order using desc. In other words, sorting from largest to smallest. Lastly, since we are looking at the top 5 counties, tag on the head function and input 5. Remember to give this new, updated data a unique name.
+
+To make the data table, we'll use the DT::datatable function. The rest is simple. Input the new data set we just created (top_5_mcauliffe) into the function and copy the rest of the code below, making sure you include filter = "top" to make it interactive. You're all set!
+
+```{r}
+
+top_5_biden <- joined_vacomparison %>%
+  select(locality, biden_pct) %>% 
+  arrange(desc(biden_pct)) %>% 
+  head(5)
+
+top_5_biden %>% 
+DT::datatable(rownames = FALSE, filter = "top", 
+                options = list(searching = FALSE, paging = FALSE, dom = "tip"))
+
+
+```
+
+GREAT WORK!

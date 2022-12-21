@@ -8,9 +8,12 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: https://drive.google.com/file/d/1QKMmVRBKqtalYcTJWuVHTCOwD9okFRFC/view?usp=sharing
+        text: Resume
       - about.qmd
       - portfolio.qmd
       - walkthrough.qmd
+      - va_election_walkthrough.qmd
       - featurearticle.qmd
       - academicpaper.qmd
   page-footer: 

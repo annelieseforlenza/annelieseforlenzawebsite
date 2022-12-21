@@ -2,10 +2,10 @@
 title: "About"
 ---
 
-About this site
+Welcome to my website! 
 
-Here is some new stuff
+Here I'm sharing my skills, background, and previous work in a mass portfolio for you all to learn from.
 
-```{r}
-1 + 1
-```
+Shoutout to Professor Kessler for a great class and helping me develop my R & Github skills!
+
+
